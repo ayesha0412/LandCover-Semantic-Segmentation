@@ -1,0 +1,19 @@
+# Shared settings inherited by every experiment config (M1+ will extend this).
+seed: 42
+paths:
+  raw_dir: dataset/archive        # original LandCover.ai (41 GeoTIFF orthophotos + masks), read-only
+  processed_dir: data/processed   # 512x512 tiles produced in M1
+  splits_dir: data/splits         # official train/val/test + nested labeled subsets (M1)
+  output_dir: outputs
+dataset:
+  tile_size: 512
+  num_classes: 5
+  class_names: [background, building, woodland, water, road]
+  ignore_index: 255
+  split_seed: 42                  # fixes the labeled subsets; top-level seed drives training randomness
+  use_official_split: true
+  label_fractions: [0.10, 0.20, 0.30, 1.00]
+  normalization: imagenet         # encoder is ImageNet-pretrained
+  nodata_handling: keep_official  # black no-data region in M-34-32-B-b-1-3 stays labeled background
+loader:
+  num_workers: 4   # 8 train + 8 val spawn workers hit the Windows commit limit in M2; 4 gives 174 img/s (M1)

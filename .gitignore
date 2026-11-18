@@ -1,0 +1,21 @@
+# Raw dataset and generated tiles (rebuild with scripts/prepare_data.py)
+dataset/
+data/*
+# ...but keep the split ID lists: they define exactly which tiles are labeled
+!data/splits/
+
+# Training runs, reports, checkpoints
+outputs/
+checkpoints/
+*.pt
+
+# Course material and private notes (not for a public repo)
+Project.pdf
+*.xlsx
+
+# Python / tooling
+__pycache__/
+*.pyc
+.pytest_cache/
+.vscode/
+*.zip
